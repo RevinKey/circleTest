@@ -1,12 +1,9 @@
 {
-  "name": "circleTest",
-  "private": true,
-  "version": "0.0.2",
-  "description": "Node.js Hello World app on Debian using docker",
-  "dependencies": {
-    "express": "4.16.1"
-  },
+  "name": "v",
+  "version": "1.0.0",
+  "main": "server.js",
   "scripts": {
-    "start": "node ./index.js"
+    "test": "echo \"Sorry, no tests. :-D\" && exit 0",
+    "start": "node server.js"
   }
-}
+ }
