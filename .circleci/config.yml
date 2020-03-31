@@ -1,0 +1,40 @@
+version: 2.1
+orbs:
+  aws-ecr: circleci/aws-ecr:@6.8.0
+  node: circleci/node@1.1.6
+jobs:
+  build-and-test:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm test
+  push:
+      - aws-ecr/build_and_push_image: # Use the pre-defined `build_and_push_image` job
+          dockerfile: Dockerfile
+          path: <path-to-my-Docker-file>
+          profile-name: <my-profile-name>
+          repo: <my-ECR-repo>
+          tag: <my-ECR-repo-tag> # default - latest
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build-and-test
+a    jobs:
+      - build:
+          filters:  # required since `deploy` has tag filters AND requires `build`
+            tags:
+              only: /.*/
+      - push:
+          requires:
+            - build
+          filters:
+            tags:
+              only: /^(snapshot)-v([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/
+            branches:
+              ignore: /.*/
+
