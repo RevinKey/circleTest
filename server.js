@@ -11,6 +11,5 @@ var server = http.createServer(function (request, response) {
 server.listen(port)
 
 //THIS IS A COMMENT
-// TEST!
 // one more!
 console.log('Server running on port' + port)
