@@ -17,7 +17,7 @@ jobs:
     steps:
       - node/with-cache:
           steps:
-            - run: echo "snapshot pushing"
+            - run: echo snapshot pushing
   promote:
     executor:
         name: node/default
@@ -29,7 +29,7 @@ workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build:
+      - build
       - snapshot-and-push:
           filters:
             branches:
