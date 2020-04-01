@@ -7,7 +7,7 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - node/with-cache:
+      - node:
           steps:
             - run: npm install
             - run: npm test
@@ -15,14 +15,14 @@ jobs:
     executor:
         name: node/default
     steps:
-      - node/with-cache:
+      - node:
           steps:
             - run: echo snapshot pushing
   promote:
     executor:
         name: node/default
     steps:
-      - node/with-cache:
+      - node:
           steps:
             - run: echo promoting
 workflows:
