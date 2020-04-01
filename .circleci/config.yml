@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
       - node/install-packages
-      - npm test
+      - run: npm test
   snapshot-and-push:
     executor:
         name: node/default
