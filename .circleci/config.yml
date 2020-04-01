@@ -21,10 +21,10 @@ jobs:
   promote:
     executor:
         name: node/default
-  steps:
-    - node/with-cache:
-        steps:
-          - run: echo promoting
+    steps:
+      - node/with-cache:
+          steps:
+            - run: echo promoting
 workflows:
   version: 2
   build-and-deploy:
