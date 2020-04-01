@@ -7,24 +7,18 @@ jobs:
       name: node/default
     steps:
       - checkout
-      - node:
-          steps:
-            - run: npm install
-            - run: npm test
+      - node/install-packages
+      - npm run test
   snapshot-and-push:
     executor:
         name: node/default
-    steps:
-      - node:
-          steps:
-            - run: echo snapshot pushing
+    steps: 
+      - run: echo snapshot pushing
   promote:
     executor:
         name: node/default
-    steps:
-      - node:
-          steps:
-            - run: echo promoting
+    steps: 
+      - run: echo promoting
 workflows:
   version: 2
   build-and-deploy:
