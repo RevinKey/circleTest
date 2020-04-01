@@ -1,0 +1,43 @@
+version: 2.1
+orbs:
+  node: circleci/node@1.1.6
+jobs:
+  build:
+    executor:
+      name: node/default
+    steps:
+      - checkout
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm test
+  snapshot-and-push:
+    executor:
+        name: node/default
+    steps:
+      - node/with-cache:
+          steps:
+            - run: echo snapshot pushing
+  promote:
+    executor:
+        name: node/default
+    steps:
+      - node/with-cache:
+          steps:
+            - run: echo promoting
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - snapshot-and-push:
+          filters:
+            branches:
+              only: master
+      - promote:
+          filters:
+            tags:
+              only: /^(stage|prod)-v([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+[0-9A-Za-z-]+)?$/
+            branches:
+              ignore: /.*/
+
